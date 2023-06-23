@@ -1,9 +1,13 @@
 import { Cover } from "components/Cover";
 import { Heading } from "components/Heading";
+import { Paragraph } from "components/Paragraph";
+
 export const BlockRenderer = ({ blocks }) => {
   return blocks.map((block) => {
     console.log(block, "block");
     switch (block.name) {
+      case "core/paragraph":
+        return <Paragraph key={block.id}></Paragraph>;
       case "core/heading":
         return (
           <Heading
