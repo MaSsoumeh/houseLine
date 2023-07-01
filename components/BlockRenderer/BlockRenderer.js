@@ -1,13 +1,26 @@
 import { Cover } from "components/Cover";
 import { Heading } from "components/Heading";
 import { Paragraph } from "components/Paragraph";
+import { theme } from "theme";
 
 export const BlockRenderer = ({ blocks }) => {
   return blocks.map((block) => {
-    console.log(block, "block");
     switch (block.name) {
-      case "core/paragraph":
-        return <Paragraph key={block.id}></Paragraph>;
+      case "core/paragraph": {
+        console.log(block, "block");
+
+        return (
+          <Paragraph
+            key={block.id}
+            content={block.attributes.content}
+            textColor={
+              theme[block.attributes.textColor] ||
+              block.attributes?.style?.color?.text
+            }
+            textAlign={block.attributes.align}
+          ></Paragraph>
+        );
+      }
       case "core/heading":
         return (
           <Heading
@@ -19,12 +32,14 @@ export const BlockRenderer = ({ blocks }) => {
             heading
           </Heading>
         );
-      case "core/cover":
+      case "core/cover": {
+        console.log(block, "block");
         return (
           <Cover key={block.id} background={block.attributes.url}>
             <BlockRenderer blocks={block.innerBlocks} />
           </Cover>
         );
+      }
       default:
         return null;
     }

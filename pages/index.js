@@ -18,11 +18,35 @@ export const getStaticProps = async () => {
             blocks
           }
         }
+
+        acfOptionsMainMenu {
+          mainMenu {
+            menuItems {
+              menuItem {
+                destination {
+                  ... on Page {
+                    uri
+                  }
+                }
+                label
+              }
+              items {
+                destination {
+                  ... on Page {
+                    uri
+                  }
+                }
+                label
+              }
+            }
+          }
+        }
       }
     `,
   });
   return {
     props: {
+      mainMenuItems: data.acfOptionsMainMenu.mainMenu.menuItems,
       blocks: cleanAndTransformBlocks(data.nodeByUri.blocks),
     },
   };
